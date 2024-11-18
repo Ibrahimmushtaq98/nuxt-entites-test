@@ -12,6 +12,7 @@ export default defineNuxtConfig({
   },
 
   auth:{
+    //baseURL: "https://test-auth.laborly.io/api/auth",
     provider:{
       type: 'authjs',
       trustHost: false,

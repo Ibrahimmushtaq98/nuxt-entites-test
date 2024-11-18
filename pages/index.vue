@@ -28,18 +28,6 @@ onMounted(async () => {
       <div v-if="status === 'authenticated'" class="flex flex-col gap-3">
         <p>Welcome, {{ user?.role }}!</p>
         <button class="btn" @click="signOut">Sign out</button>
-        <ul>
-          <li>
-            <a href="localhost:3000" target="_blank">
-              subdomain.solutions-subdomain-auth.vercel.sh
-            </a>
-          </li>
-          <li>
-            <a href="localhost:3000" target="_blank">
-              solutions-subdomain-auth.vercel.sh
-            </a>
-          </li>
-        </ul>
       </div>
 
       <div v-else-if="status === 'loading'" class="text-center">
@@ -47,8 +35,12 @@ onMounted(async () => {
       </div>
 
       <div v-else class="m-auto w-fit">
+        <button class="btn-lg" @click="signIn('github')">
+          Sign in with Github
+        </button>
+
         <button class="btn-lg" @click="signIn('identityserver')">
-          Sign in with Identity Server
+          Sign in with IdentityServer
         </button>
       </div>
     </section>
