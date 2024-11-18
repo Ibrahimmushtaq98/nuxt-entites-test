@@ -1,0 +1,19 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --https --ssl-cert localhost+2.pem --ssl-key localhost+2-key.pem --port 3000 --trace-warnings --inspect",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@sidebase/nuxt-auth": "^0.9.4",
+    "next-auth": "^4.21.1",
+    "nuxt": "^3.14.159",
+    "vue": "latest",
+    "vue-router": "latest"
+  }
+}
