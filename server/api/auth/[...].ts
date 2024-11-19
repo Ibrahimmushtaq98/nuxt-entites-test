@@ -4,7 +4,7 @@ import { DuendeISUser } from 'next-auth/providers/duende-identity-server6';
 import GitHubProvider from 'next-auth/providers/github'
 import { JWT } from 'next-auth/jwt';
 
-const useSecureCookies = !!process.env.VERCEL_URL
+const useSecureCookies = true;
 
 export default NuxtAuthHandler({
     secret: process.env.AUTH_SECRET,
@@ -21,25 +21,25 @@ export default NuxtAuthHandler({
             // Client value, this was set in Duende Identity and must follow that id
             clientId: process.env.CLIENT_IDENTITY_ID,
             clientSecret: process.env.CLIENT_IDENTITY_SECRET,
-            issuer: process.env.IDENTITY_BASE_URL,
+            issuer: process.env.NUXT_PUBLIC_IDENTITY_BASE_URL,
             authorization: {
-                url: `${process.env.IDENTITY_BASE_URL}/connect/authorize`,
+                url: `${process.env.NUXT_PUBLIC_IDENTITY_BASE_URL}/connect/authorize`,
                 params: {
                   scope: 'openid profile api1 offline_access',
                   response_type: 'code',
                 },
             },
             token: {
-                url: `${process.env.IDENTITY_BASE_URL}/connect/token`,
+                url: `${process.env.NUXT_PUBLIC_IDENTITY_BASE_URL}/connect/token`,
                 params: {
                   grant_type: 'authorization_code',
-                  redirect_uri: `${process.env.FRONTEND_SECONDARY_BASE_URL}/api/auth/callback/identityserver`
+                  redirect_uri: `${process.env.NUXT_PUBLIC_FRONTEND_SECONDARY_BASE_URL}/api/auth/callback/identityserver`
                 }
             },
-            userinfo: `${process.env.IDENTITY_BASE_URL}/connect/userinfo`,
+            userinfo: `${process.env.NUXT_PUBLIC_IDENTITY_BASE_URL}/connect/userinfo`,
             //checks: ['pkce'],
             checks: [],
-            idToken: true,
+            idToken: false,
             profile(profile: DuendeISUser, token: JWT) {
                 return {
                   id: profile.sub,
@@ -49,7 +49,7 @@ export default NuxtAuthHandler({
                 };
             },
             // Force HTTPS on redirect and callback
-            redirect: process.env.FRONTEND_SECONDARY_BASE_URL,
+            redirect: process.env.NUXT_PUBLIC_FRONTEND_SECONDARY_BASE_URL,
         }),
     ],
     cookies: {
@@ -57,10 +57,12 @@ export default NuxtAuthHandler({
           name: `${useSecureCookies ? '__Secure-' : ''}next-auth.session-token`,
           options: {
             httpOnly: true,
-            sameSite: 'lax',
+            sameSite: 'none',
             path: '/',
             domain: '.laborly.io',
             secure: useSecureCookies,
+			//maxAge: 60 * 5,
+			//expires: new Date(Date.now() + 5 * 60 * 1000)
           },
         },
     },
@@ -76,18 +78,6 @@ export default NuxtAuthHandler({
 			token.role = profile.role || 'user'; // Store role in the token
 		  }
 		  return token;
-		},  
-		async session({ session, token }) {
-		  // Attach role and name to session.user from token
-		  session.user = {
-			...session.user,
-			role: token.role!,
-		  };
-		  session.token = token;
-		  return session;
-		},
-		async redirect({ url, baseUrl }) {
-			return baseUrl + "/test";
 		},
 	  },
     debug: true,

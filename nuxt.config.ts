@@ -11,6 +11,12 @@ export default defineNuxtConfig({
     preset: 'vercel',
   },
 
+  routeRules: {
+    '/api/**': {
+        cors: true,
+     },
+  },
+
   auth:{
     //baseURL: "https://test-auth.laborly.io/api/auth",
     provider:{
