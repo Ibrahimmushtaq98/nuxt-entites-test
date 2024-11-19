@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "build-azure": "nuxt build --preset=azure",
     "dev": "nuxt dev --https --ssl-cert localhost+2.pem --ssl-key localhost+2-key.pem --port 3000 --trace-warnings --inspect",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
