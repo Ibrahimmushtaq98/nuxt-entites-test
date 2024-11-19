@@ -159,3 +159,5 @@ dist
 # Certs
 **.pem
 **.key
+
+staticwebapp.config.json
