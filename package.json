@@ -5,7 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "build-azure": "nuxt build --preset=azure",
-    "dev": "nuxt dev --https --ssl-cert localhost+2.pem --ssl-key localhost+2-key.pem --port 3000 --trace-warnings --inspect",
+    "dev": "nuxt dev --verbose --https --ssl-cert localhost+2.pem --ssl-key localhost+2-key.pem --port 3000 --trace-warnings --inspect",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -13,6 +13,7 @@
   "dependencies": {
     "@next-auth/typeorm-legacy-adapter": "^2.0.2",
     "@sidebase/nuxt-auth": "^0.9.4",
+    "mssql": "^7.3.5",
     "next-auth": "^4.21.1",
     "nuxt": "^3.14.159",
     "vue": "latest",
