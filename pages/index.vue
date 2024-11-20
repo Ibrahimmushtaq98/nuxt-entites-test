@@ -9,6 +9,23 @@ onMounted(async () => {
   const session = await getSession()
   user.value = session?.user || null
 })
+
+const handleLogin = async () => {
+  await signIn('identityserver', {external: true})
+}
+
+const setCookie = async () => {
+  try {
+    const response = await fetch('/api/set-cookies', {
+      method: 'GET', // Use POST if necessary
+      credentials: 'include', // Include cookies in the request
+    });
+    const data = await response.json();
+    console.log(data.message); // Log success message
+  } catch (error) {
+    console.error('Error setting cookie:', error);
+  }
+};
 </script>
 
 <template>
@@ -27,7 +44,7 @@ onMounted(async () => {
     <section class="flex flex-col gap-3">
       <div v-if="status === 'authenticated'" class="flex flex-col gap-3">
         <p>Welcome, {{ user?.role }}!</p>
-        <button class="btn" @click="signOut">Sign out</button>
+        <button class="btn" @click="signOut()">Sign out</button>
       </div>
 
       <div v-else-if="status === 'loading'" class="text-center">
@@ -35,14 +52,15 @@ onMounted(async () => {
       </div>
 
       <div v-else class="m-auto w-fit">
-        <button class="btn-lg" @click="signIn('github')">
-          Sign in with Github
-        </button>
-
-        <button class="btn-lg" @click="signIn('identityserver')">
+        <button class="btn-lg" @click="handleLogin()">
           Sign in with IdentityServer
         </button>
       </div>
+    </section>
+    <section class="flex flex-col gap-3 mt-6">
+      <button class="btn-lg" @click="setCookie()">
+        Set Cookie
+      </button>
     </section>
   </div>
 </template>

@@ -1,3 +1,0 @@
-<template>
-    Ha ha
-</template>
