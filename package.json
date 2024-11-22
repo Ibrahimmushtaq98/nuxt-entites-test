@@ -5,17 +5,20 @@
   "scripts": {
     "build": "nuxt build",
     "build-azure": "nuxt build --preset=azure",
-    "dev": "nuxt dev --verbose --https --ssl-cert localhost+2.pem --ssl-key localhost+2-key.pem --port 3000 --trace-warnings --inspect",
+    "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@next-auth/typeorm-legacy-adapter": "^2.0.2",
+    "@auth/azure-tables-adapter": "^1.7.4",
+    "@auth/typeorm-adapter": "^2.7.4",
     "@sidebase/nuxt-auth": "^0.9.4",
-    "mssql": "^7.3.5",
+    "mssql": "^9.3.2",
     "next-auth": "^4.21.1",
     "nuxt": "^3.14.159",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20",
     "vue": "latest",
     "vue-router": "latest"
   }
